@@ -1,208 +1,124 @@
-# Customer Churn Analytics Dashboard
+# 📊 Customer Churn Intelligence Dashboard
 
-An interactive Customer Churn Analytics Dashboard built using Python, Pandas, Plotly, and Streamlit.
+An interactive **Customer Churn Analytics Dashboard** developed using Python, Pandas, Matplotlib, Seaborn, and Streamlit as part of the **Digital Kuppam Data Science Internship – Task 2**.
 
-The dashboard helps analyze customer churn patterns and provides business insights that can support customer retention strategies.
+The dashboard helps analyze customer churn patterns, identify high-risk customer segments, and generate practical business recommendations for improving customer retention.
 
 ---
 
 ## 📌 Project Overview
 
-Customer churn is a major challenge for telecom companies because losing existing customers can directly affect revenue and long-term growth.
+Customer churn is a major challenge for telecom companies because losing existing customers can negatively affect revenue, customer lifetime value, and long-term business growth.
 
-This project analyzes customer information to identify churn patterns based on contract type, payment method, internet service, technical support, gender, tenure, and monthly charges.
+This project analyzes telecom customer data to understand churn behavior across different customer characteristics such as:
 
-An interactive Streamlit dashboard has been developed to make the analysis easy to explore and understand.
+- Contract Type
+- Payment Method
+- Internet Service
+- Technical Support
+- Customer Tenure
+- Senior Citizen Status
+- Gender
+- Monthly Charges
+
+An interactive Streamlit dashboard has been developed to make the analysis easier to explore using filters, KPIs, visualizations, business insights, and recommendations.
 
 ---
 
-## 🎯 Objectives
+## 🎯 Project Objectives
 
+The main objectives of this project are:
+
+- Clean and prepare the customer churn dataset.
 - Analyze customer churn patterns.
-- Clean and prepare the dataset.
 - Calculate important business KPIs.
 - Visualize churn across different customer attributes.
-- Provide interactive filters for customer analysis.
-- Identify major factors associated with customer churn.
-- Provide actionable business recommendations.
+- Provide interactive customer segmentation filters.
+- Identify high-risk customer segments.
+- Generate meaningful business insights.
+- Provide actionable recommendations for customer retention.
 
 ---
 
-## 📊 Dataset Description
+## 📂 Dataset Description
 
-The dataset contains telecom customer information including:
+The dataset contains telecom customer information with **7,043 customer records and 21 features**.
 
-- Customer ID
-- Gender
-- Senior Citizen
-- Partner
-- Dependents
-- Tenure
-- Phone Service
-- Multiple Lines
-- Internet Service
-- Online Security
-- Online Backup
-- Device Protection
-- Technical Support
-- Streaming TV
-- Streaming Movies
-- Contract
-- Paperless Billing
-- Payment Method
-- Monthly Charges
-- Total Charges
-- Churn
+The dataset includes:
 
-### Dataset Size
+| Feature | Description |
+|---|---|
+| customerID | Unique customer identifier |
+| gender | Customer gender |
+| SeniorCitizen | Senior citizen status |
+| Partner | Whether customer has a partner |
+| Dependents | Whether customer has dependents |
+| tenure | Number of months the customer has stayed |
+| PhoneService | Phone service availability |
+| MultipleLines | Multiple line service |
+| InternetService | Type of internet service |
+| OnlineSecurity | Online security service |
+| OnlineBackup | Online backup service |
+| DeviceProtection | Device protection service |
+| TechSupport | Technical support service |
+| StreamingTV | Streaming TV service |
+| StreamingMovies | Streaming movies service |
+| Contract | Contract type |
+| PaperlessBilling | Paperless billing status |
+| PaymentMethod | Payment method |
+| MonthlyCharges | Monthly customer charges |
+| TotalCharges | Total charges paid |
+| Churn | Customer churn status |
 
-- Total Customers: **7,043**
-- Total Features: **21**
+### Dataset Summary
+
+- **Total Customers:** 7,043
+- **Total Features:** 21
+- **Churned Customers:** 1,869
+- **Overall Churn Rate:** 26.54%
 
 ---
 
 ## 🧹 Data Preparation
 
-The following preprocessing steps were performed:
+The following data preparation steps were performed:
 
-- Converted `TotalCharges` into numeric format.
-- Handled missing values in `TotalCharges`.
-- Filled applicable missing `TotalCharges` values with 0.
-- Checked and removed duplicate records.
-- Prepared categorical variables for analysis.
-- Created customer tenure groups for deeper analysis.
-- Prepared the dataset for dashboard visualization.
+1. Loaded the dataset using Pandas.
+2. Converted `tenure` into numeric format.
+3. Converted `MonthlyCharges` into numeric format.
+4. Converted `TotalCharges` into numeric format.
+5. Handled blank values in `TotalCharges`.
+6. Filled the 11 missing `TotalCharges` values with `0`.
+7. Cleaned whitespace from text-based columns.
+8. Removed duplicate records.
+9. Prepared the cleaned dataset for analysis and visualization.
+
+The 11 customers with blank `TotalCharges` values were retained in the analysis by assigning their missing total charge value as `0`.
 
 ---
 
-## 📈 Key Metrics
+## 📊 Key Performance Indicators
 
-The dashboard provides the following key metrics:
+The dashboard provides the following KPIs for the complete dataset:
 
-| Metric | Value |
+| KPI | Value |
 |---|---:|
-| Total Customers | 7,043 |
-| Churned Customers | 1,869 |
-| Churn Rate | 26.54% |
-| Average Tenure | 32.37 months |
-| Average Monthly Charges | $64.76 |
+| 👥 Total Customers | **7,043** |
+| 📉 Churn Rate | **26.54%** |
+| ⏱️ Average Tenure | **32.4 months** |
+| 💰 Average Monthly Charges | **$64.76** |
 
 ---
 
-## 📊 Dashboard Visualizations
+## 🎛️ Interactive Filters
 
-The dashboard includes:
+The dashboard provides interactive filters for customer segmentation.
 
-- Churn by Contract Type
-- Churn by Payment Method
-- Churn by Internet Service
-- Churn by Technical Support
-- Customer Distribution by Gender
-- Interactive customer filters
-- Customer-level filtered data
+Available filters include:
 
----
-
-## 🔍 Key Findings
-
-### 1. Contract Type
-
-Month-to-month customers have the highest churn rate:
-
-- Month-to-month: **42.71%**
-- One year: **11.27%**
-- Two year: **2.83%**
-
-This indicates that customers without long-term contracts are considerably more likely to leave.
-
-### 2. Payment Method
-
-Electronic check customers have the highest churn rate:
-
-**45.29%**
-
-Other payment methods have substantially lower churn rates.
-
-### 3. Internet Service
-
-Fiber optic customers show a relatively high churn rate:
-
-**41.89%**
-
-This suggests that pricing, service quality, or customer expectations may need further investigation.
-
-### 4. Technical Support
-
-Customers without technical support show a much higher churn rate than customers who have technical support.
-
-### 5. Customer Tenure
-
-New customers are more likely to churn.
-
-Customers with 0–6 months of tenure have a churn rate of approximately:
-
-**52.94%**
-
-Customers with 49–72 months of tenure have a much lower churn rate of approximately:
-
-**9.51%**
-
----
-
-## 💡 Business Insights
-
-1. Month-to-month customers are the highest-risk customer segment.
-2. New customers have significantly higher churn risk.
-3. Electronic check users show the highest churn rate among payment methods.
-4. Customers without technical support are more likely to churn.
-5. Fiber optic customers have comparatively high churn.
-6. Customers with higher monthly charges show higher churn tendency.
-
----
-
-## 🚀 Recommendations
-
-### 1. Promote Long-Term Contracts
-
-Offer discounts, loyalty benefits, and special incentives to encourage month-to-month customers to move to one-year or two-year contracts.
-
-### 2. Improve New Customer Onboarding
-
-Create a strong onboarding program during the first 6 months to improve customer satisfaction and reduce early churn.
-
-### 3. Increase Technical Support Adoption
-
-Promote technical support services and provide proactive assistance to customers experiencing service issues.
-
-### 4. Encourage Automatic Payments
-
-Provide incentives for customers to use automatic bank transfer or credit card payments.
-
-### 5. Investigate Fiber Optic Churn
-
-Analyze fiber optic pricing, service quality, technical issues, and customer expectations to identify the reasons behind higher churn.
-
----
-
-## 🛠️ Technologies Used
-
-- Python
-- Pandas
-- Plotly
-- Streamlit
-- GitHub
-
----
-
-## 📁 Project Structure
-
-```text
-customer-churn-prediction-dashboard/
-│
-├── app.py
-├── Dataset.csv
-├── requirements.txt
-├── README.md
-│
-└── report/
-    └── Customer_Churn_Analytics_Task_2_Report_Final.pdf
+- Gender
+- Senior Citizen
+- Partner
+- Contract Type
+- Internet Service
+-
