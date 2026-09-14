@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+
 # ============================================================
 # PAGE CONFIGURATION
 # ============================================================
@@ -14,198 +15,157 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+
 # ============================================================
 # CUSTOM CSS
-# HTML IS USED ONLY FOR STYLING
 # ============================================================
 
 st.markdown(
     """
-<style>
+    <style>
 
-/* ============================================================
-   APPLICATION BACKGROUND
-   ============================================================ */
+    /* Main application background */
+    .stApp {
+        background:
+            radial-gradient(
+                circle at 10% 10%,
+                rgba(37, 99, 235, 0.15),
+                transparent 28%
+            ),
+            radial-gradient(
+                circle at 90% 10%,
+                rgba(124, 58, 237, 0.13),
+                transparent 28%
+            ),
+            linear-gradient(
+                135deg,
+                #07111f 0%,
+                #0b1628 50%,
+                #101827 100%
+            );
+    }
 
-.stApp {
-    background:
-        radial-gradient(
-            circle at 10% 10%,
-            rgba(37, 99, 235, 0.15),
-            transparent 28%
-        ),
-        radial-gradient(
-            circle at 90% 10%,
-            rgba(124, 58, 237, 0.13),
-            transparent 28%
-        ),
-        linear-gradient(
-            135deg,
-            #07111f 0%,
-            #0b1628 50%,
-            #101827 100%
-        );
-}
+    /* Main content */
+    .block-container {
+        max-width: 1450px;
+        padding-top: 2rem;
+        padding-bottom: 3rem;
+    }
 
+    /* Text */
+    h1 {
+        color: #ffffff !important;
+    }
 
-/* ============================================================
-   MAIN CONTENT
-   ============================================================ */
+    h2 {
+        color: #ffffff !important;
+    }
 
-.block-container {
-    max-width: 1450px;
-    padding-top: 2rem;
-    padding-bottom: 3rem;
-}
+    h3 {
+        color: #f8fafc !important;
+    }
 
+    h4 {
+        color: #f8fafc !important;
+    }
 
-/* ============================================================
-   TEXT COLORS
-   ============================================================ */
+    p {
+        color: #cbd5e1 !important;
+    }
 
-h1 {
-    color: #ffffff !important;
-}
+    /* Sidebar */
+    section[data-testid="stSidebar"] {
+        background:
+            linear-gradient(
+                180deg,
+                #06101d 0%,
+                #0b1728 100%
+            );
 
-h2 {
-    color: #ffffff !important;
-}
+        border-right: 1px solid rgba(148, 163, 184, 0.15);
+    }
 
-h3 {
-    color: #f8fafc !important;
-}
+    section[data-testid="stSidebar"] h1,
+    section[data-testid="stSidebar"] h2,
+    section[data-testid="stSidebar"] h3 {
+        color: #ffffff !important;
+    }
 
-h4 {
-    color: #f8fafc !important;
-}
+    section[data-testid="stSidebar"] p {
+        color: #94a3b8 !important;
+    }
 
-p {
-    color: #cbd5e1 !important;
-}
+    section[data-testid="stSidebar"] label {
+        color: #cbd5e1 !important;
+    }
 
+    /* KPI cards */
+    div[data-testid="metric-container"] {
+        background:
+            linear-gradient(
+                145deg,
+                rgba(30, 41, 59, 0.95),
+                rgba(15, 23, 42, 0.98)
+            );
 
-/* ============================================================
-   SIDEBAR
-   ============================================================ */
+        border: 1px solid rgba(148, 163, 184, 0.18);
+        border-radius: 18px;
+        padding: 20px;
 
-section[data-testid="stSidebar"] {
-    background:
-        linear-gradient(
-            180deg,
-            #06101d 0%,
-            #0b1728 100%
-        );
+        box-shadow:
+            0 10px 30px rgba(0, 0, 0, 0.25);
+    }
 
-    border-right: 1px solid rgba(148, 163, 184, 0.15);
-}
+    div[data-testid="stMetricLabel"] {
+        color: #94a3b8 !important;
+    }
 
-section[data-testid="stSidebar"] h1,
-section[data-testid="stSidebar"] h2,
-section[data-testid="stSidebar"] h3 {
-    color: #ffffff !important;
-}
+    div[data-testid="stMetricValue"] {
+        color: #ffffff !important;
+        font-weight: 800 !important;
+    }
 
-section[data-testid="stSidebar"] p {
-    color: #94a3b8 !important;
-}
+    /* Filter boxes */
+    div[data-baseweb="select"] > div {
+        border-radius: 10px;
+    }
 
-section[data-testid="stSidebar"] label {
-    color: #cbd5e1 !important;
-}
+    /* Insight containers */
+    div[data-testid="stVerticalBlockBorderWrapper"] {
+        background:
+            linear-gradient(
+                145deg,
+                rgba(30, 41, 59, 0.92),
+                rgba(15, 23, 42, 0.97)
+            );
 
+        border: 1px solid rgba(148, 163, 184, 0.16);
+        border-radius: 18px;
 
-/* ============================================================
-   KPI CARDS
-   ============================================================ */
+        box-shadow:
+            0 8px 25px rgba(0, 0, 0, 0.20);
+    }
 
-div[data-testid="metric-container"] {
-    background:
-        linear-gradient(
-            145deg,
-            rgba(30, 41, 59, 0.95),
-            rgba(15, 23, 42, 0.98)
-        );
+    /* Alert boxes */
+    div[data-testid="stAlert"] {
+        border-radius: 12px;
+    }
 
-    border: 1px solid rgba(148, 163, 184, 0.18);
+    /* Divider */
+    hr {
+        border-color: rgba(148, 163, 184, 0.15) !important;
+    }
 
-    border-radius: 18px;
+    /* Caption */
+    div[data-testid="stCaptionContainer"] {
+        color: #94a3b8 !important;
+    }
 
-    padding: 20px;
-
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.25);
-}
-
-div[data-testid="stMetricLabel"] {
-    color: #94a3b8 !important;
-}
-
-div[data-testid="stMetricValue"] {
-    color: #ffffff !important;
-    font-weight: 800 !important;
-}
-
-
-/* ============================================================
-   FILTER BOXES
-   ============================================================ */
-
-div[data-baseweb="select"] > div {
-    border-radius: 10px;
-}
-
-
-/* ============================================================
-   INSIGHT CONTAINERS
-   ============================================================ */
-
-div[data-testid="stVerticalBlockBorderWrapper"] {
-    background:
-        linear-gradient(
-            145deg,
-            rgba(30, 41, 59, 0.92),
-            rgba(15, 23, 42, 0.97)
-        );
-
-    border: 1px solid rgba(148, 163, 184, 0.16);
-
-    border-radius: 18px;
-
-    box-shadow:
-        0 8px 25px rgba(0, 0, 0, 0.20);
-}
-
-
-/* ============================================================
-   ALERT / INFO BOXES
-   ============================================================ */
-
-div[data-testid="stAlert"] {
-    border-radius: 12px;
-}
-
-
-/* ============================================================
-   DIVIDER
-   ============================================================ */
-
-hr {
-    border-color: rgba(148, 163, 184, 0.15) !important;
-}
-
-
-/* ============================================================
-   CAPTION
-   ============================================================ */
-
-div[data-testid="stCaptionContainer"] {
-    color: #94a3b8 !important;
-}
-
-</style>
-""",
+    </style>
+    """,
     unsafe_allow_html=True
 )
+
 
 # ============================================================
 # LOAD DATASET
@@ -216,7 +176,10 @@ def load_data():
 
     data = pd.read_csv("Dataset.csv")
 
+    # --------------------------------------------------------
     # Convert numeric columns
+    # --------------------------------------------------------
+
     data["tenure"] = pd.to_numeric(
         data["tenure"],
         errors="coerce"
@@ -232,7 +195,16 @@ def load_data():
         errors="coerce"
     )
 
+    # IMPORTANT:
+    # The original dataset contains 11 blank TotalCharges values.
+    # These belong to customers with zero tenure.
+    # Fill them with 0 instead of removing those customers.
+    data["TotalCharges"] = data["TotalCharges"].fillna(0)
+
+    # --------------------------------------------------------
     # Clean text columns
+    # --------------------------------------------------------
+
     text_columns = [
         "gender",
         "Partner",
@@ -262,20 +234,29 @@ def load_data():
                 .str.strip()
             )
 
-    # Remove rows missing essential analytical values
+    # --------------------------------------------------------
+    # Remove only rows with essential missing values
+    # --------------------------------------------------------
+
     data = data.dropna(
         subset=[
             "tenure",
             "MonthlyCharges",
-            "TotalCharges",
             "Churn"
         ]
     )
+
+    # --------------------------------------------------------
+    # Remove duplicate records
+    # --------------------------------------------------------
+
+    data = data.drop_duplicates()
 
     return data
 
 
 df = load_data()
+
 
 # ============================================================
 # DASHBOARD HEADER
@@ -294,6 +275,7 @@ st.caption(
 
 st.divider()
 
+
 # ============================================================
 # SIDEBAR FILTERS
 # ============================================================
@@ -305,6 +287,7 @@ st.sidebar.write(
 )
 
 st.sidebar.divider()
+
 
 # ============================================================
 # GENDER FILTER
@@ -319,6 +302,7 @@ selected_gender = st.sidebar.multiselect(
     options=gender_options,
     default=gender_options
 )
+
 
 # ============================================================
 # SENIOR CITIZEN FILTER
@@ -335,6 +319,7 @@ selected_senior = st.sidebar.multiselect(
     format_func=lambda x: "Yes" if x == 1 else "No"
 )
 
+
 # ============================================================
 # PARTNER FILTER
 # ============================================================
@@ -348,6 +333,7 @@ selected_partner = st.sidebar.multiselect(
     options=partner_options,
     default=partner_options
 )
+
 
 # ============================================================
 # CONTRACT FILTER
@@ -363,6 +349,7 @@ selected_contract = st.sidebar.multiselect(
     default=contract_options
 )
 
+
 # ============================================================
 # INTERNET SERVICE FILTER
 # ============================================================
@@ -376,6 +363,7 @@ selected_internet = st.sidebar.multiselect(
     options=internet_options,
     default=internet_options
 )
+
 
 # ============================================================
 # PAYMENT METHOD FILTER
@@ -391,8 +379,9 @@ selected_payment = st.sidebar.multiselect(
     default=payment_options
 )
 
+
 # ============================================================
-# RESET FILTER BUTTON
+# FILTER INFORMATION
 # ============================================================
 
 st.sidebar.divider()
@@ -400,6 +389,7 @@ st.sidebar.divider()
 st.sidebar.caption(
     "💡 Tip: Change the filters to analyze specific customer segments."
 )
+
 
 # ============================================================
 # APPLY FILTERS
@@ -419,6 +409,7 @@ filtered_df = df[
     (df["PaymentMethod"].isin(selected_payment))
 ]
 
+
 # ============================================================
 # CHECK FOR EMPTY DATA
 # ============================================================
@@ -431,6 +422,7 @@ if filtered_df.empty:
     )
 
     st.stop()
+
 
 # ============================================================
 # KPI CALCULATIONS
@@ -460,6 +452,7 @@ average_tenure = (
 average_monthly_charges = (
     filtered_df["MonthlyCharges"].mean()
 )
+
 
 # ============================================================
 # KEY PERFORMANCE INDICATORS
@@ -494,16 +487,19 @@ with k4:
 
     st.metric(
         label="💰 Avg Monthly Charges",
-        value=f"{average_monthly_charges:.2f}"
+        value=f"${average_monthly_charges:.2f}"
     )
 
+
 st.divider()
+
 
 # ============================================================
 # CHURN ANALYSIS
 # ============================================================
 
 st.subheader("📈 Churn Analysis")
+
 
 # ============================================================
 # CONTRACT CHURN
@@ -523,6 +519,7 @@ contract_data = (
     .reset_index(name="Churn Rate")
 )
 
+
 # ============================================================
 # PAYMENT METHOD CHURN
 # ============================================================
@@ -541,11 +538,13 @@ payment_data = (
     .reset_index(name="Churn Rate")
 )
 
+
 # ============================================================
 # CONTRACT + PAYMENT CHARTS
 # ============================================================
 
 chart1, chart2 = st.columns(2)
+
 
 # ============================================================
 # CONTRACT CHART
@@ -584,15 +583,12 @@ with chart1:
         )
 
     plt.xticks(rotation=15)
-
     plt.tight_layout()
 
-    st.pyplot(
-        fig,
-        use_container_width=True
-    )
+    st.pyplot(fig)
 
     plt.close(fig)
+
 
 # ============================================================
 # PAYMENT CHART
@@ -631,15 +627,12 @@ with chart2:
         )
 
     plt.xticks(rotation=25)
-
     plt.tight_layout()
 
-    st.pyplot(
-        fig,
-        use_container_width=True
-    )
+    st.pyplot(fig)
 
     plt.close(fig)
+
 
 # ============================================================
 # INTERNET SERVICE ANALYSIS
@@ -659,6 +652,7 @@ internet_data = (
     .reset_index(name="Churn Rate")
 )
 
+
 # ============================================================
 # GENDER DISTRIBUTION
 # ============================================================
@@ -668,11 +662,13 @@ gender_data = (
     .value_counts()
 )
 
+
 # ============================================================
 # INTERNET + GENDER
 # ============================================================
 
 chart3, chart4 = st.columns(2)
+
 
 # ============================================================
 # INTERNET SERVICE CHART
@@ -712,12 +708,10 @@ with chart3:
 
     plt.tight_layout()
 
-    st.pyplot(
-        fig,
-        use_container_width=True
-    )
+    st.pyplot(fig)
 
     plt.close(fig)
+
 
 # ============================================================
 # GENDER PIE CHART
@@ -744,12 +738,10 @@ with chart4:
         fontweight="bold"
     )
 
-    st.pyplot(
-        fig,
-        use_container_width=True
-    )
+    st.pyplot(fig)
 
     plt.close(fig)
+
 
 # ============================================================
 # ADDITIONAL ANALYSIS
@@ -758,6 +750,7 @@ with chart4:
 st.divider()
 
 st.subheader("🔬 Additional Churn Analysis")
+
 
 # ============================================================
 # SENIOR CITIZEN ANALYSIS
@@ -786,6 +779,7 @@ senior_data["SeniorCitizen"] = (
         }
     )
 )
+
 
 # ============================================================
 # TENURE GROUP
@@ -828,11 +822,13 @@ tenure_data = (
     .reset_index(name="Churn Rate")
 )
 
+
 # ============================================================
 # SENIOR + TENURE CHARTS
 # ============================================================
 
 chart5, chart6 = st.columns(2)
+
 
 # ============================================================
 # SENIOR CITIZEN CHART
@@ -871,15 +867,12 @@ with chart5:
         )
 
     plt.xticks(rotation=10)
-
     plt.tight_layout()
 
-    st.pyplot(
-        fig,
-        use_container_width=True
-    )
+    st.pyplot(fig)
 
     plt.close(fig)
+
 
 # ============================================================
 # TENURE CHART
@@ -919,12 +912,10 @@ with chart6:
 
     plt.tight_layout()
 
-    st.pyplot(
-        fig,
-        use_container_width=True
-    )
+    st.pyplot(fig)
 
     plt.close(fig)
+
 
 # ============================================================
 # BUSINESS INSIGHTS
@@ -933,6 +924,7 @@ with chart6:
 st.divider()
 
 st.subheader("💡 Business Insights & Recommendations")
+
 
 # ============================================================
 # FIND HIGHEST-RISK CATEGORIES
@@ -945,142 +937,3 @@ highest_contract = contract_data.loc[
 highest_payment = payment_data.loc[
     payment_data["Churn Rate"].idxmax()
 ]
-
-highest_internet = internet_data.loc[
-    internet_data["Churn Rate"].idxmax()
-]
-
-highest_tenure = tenure_data.loc[
-    tenure_data["Churn Rate"].idxmax()
-]
-
-highest_senior = senior_data.loc[
-    senior_data["Churn Rate"].idxmax()
-]
-
-# ============================================================
-# INSIGHT 1
-# ============================================================
-
-with st.container(border=True):
-
-    st.markdown("### 🔴 01 — Contract Risk")
-
-    st.write(
-        f"The **{highest_contract['Contract']}** contract category "
-        f"has the highest churn rate at "
-        f"**{highest_contract['Churn Rate']:.1f}%**."
-    )
-
-    st.info(
-        "💡 Recommendation: Encourage customers to move toward "
-        "longer-term contracts through loyalty rewards, discounts "
-        "and targeted retention offers."
-    )
-
-# ============================================================
-# INSIGHT 2
-# ============================================================
-
-with st.container(border=True):
-
-    st.markdown("### 🟠 02 — Payment Method Risk")
-
-    st.write(
-        f"**{highest_payment['PaymentMethod']}** has the highest "
-        f"churn rate among payment methods at "
-        f"**{highest_payment['Churn Rate']:.1f}%**."
-    )
-
-    st.info(
-        "💡 Recommendation: Review the payment experience and "
-        "promote convenient automated payment options."
-    )
-
-# ============================================================
-# INSIGHT 3
-# ============================================================
-
-with st.container(border=True):
-
-    st.markdown("### 🟡 03 — Internet Service Risk")
-
-    st.write(
-        f"**{highest_internet['InternetService']}** customers show "
-        f"the highest churn rate among internet service categories "
-        f"at **{highest_internet['Churn Rate']:.1f}%**."
-    )
-
-    st.info(
-        "💡 Recommendation: Investigate service quality, technical "
-        "issues and customer satisfaction for this customer segment."
-    )
-
-# ============================================================
-# INSIGHT 4
-# ============================================================
-
-with st.container(border=True):
-
-    st.markdown("### 🔵 04 — Early Customer Retention")
-
-    st.write(
-        f"The **{highest_tenure['Tenure Group']}** customer group "
-        f"has the highest churn rate at "
-        f"**{highest_tenure['Churn Rate']:.1f}%**."
-    )
-
-    st.info(
-        "💡 Recommendation: Introduce stronger onboarding, "
-        "customer engagement and early-stage retention campaigns."
-    )
-
-# ============================================================
-# INSIGHT 5
-# ============================================================
-
-with st.container(border=True):
-
-    st.markdown("### 🟣 05 — Senior Customer Risk")
-
-    st.write(
-        f"**{highest_senior['SeniorCitizen']}** customers show "
-        f"the higher churn rate at "
-        f"**{highest_senior['Churn Rate']:.1f}%**."
-    )
-
-    st.info(
-        "💡 Recommendation: Design personalized support, service "
-        "assistance and retention programs for higher-risk customers."
-    )
-
-
-# EXECUTIVE SUMMARY
-
-
-st.divider()
-
-st.subheader("🎯 Executive Summary")
-
-st.success(
-    f"""
-    The selected customer segment contains **{total_customers:,} customers**
-    with an overall churn rate of **{churn_rate:.2f}%**.
-
-    The analysis identifies contract type, payment method, internet
-    service, tenure and customer demographics as important dimensions
-    for understanding customer churn and developing retention strategies.
-    """
-)
-
-
-# FOOTER
-
-
-st.divider()
-
-st.caption(
-    "📊 Customer Churn Intelligence Dashboard  |  "
-    "Python • Pandas • Matplotlib • Seaborn • Streamlit  |  "
-    "Digital Kuppam — Data Science Internship — Task 2"
-)
